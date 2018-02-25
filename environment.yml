@@ -1,0 +1,3 @@
+name: unknown
+dependencies:
+    - opencv=2.4.10=np110py27_1
