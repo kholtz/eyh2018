@@ -8,4 +8,5 @@ dependencies:
     - jupyter
     - opencv3
     - matplotlib
+    - pillow
 
