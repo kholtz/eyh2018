@@ -1,3 +1,10 @@
-name: unknown
+name: eyh
+channels:
+    - conda-forge
 dependencies:
-    - opencv=2.4.10=np110py27_1
+    - python==3.5.2
+    - numpy
+    - jupyter
+    - opencv3
+    - matplotlib
+
