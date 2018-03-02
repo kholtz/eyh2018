@@ -9,4 +9,4 @@ dependencies:
     - opencv3
     - matplotlib
     - pillow
-
+    - ipywidgets
