@@ -12,7 +12,7 @@ def get_color_widget(color_name):
 		step=1, 
 		description=color_name + ':',
 		disabled=False,
-		continuous_update=True,
+		continuous_update=False,
 		orientation='horizontal',
 		readout=True,
 		readout_format='d'
