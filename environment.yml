@@ -11,3 +11,5 @@ dependencies:
     - pillow
     - ipywidgets
     - widgetsnbextension
+    - pip:
+        - moviepy
