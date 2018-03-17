@@ -10,11 +10,8 @@ white_lines = mpimg.imread(filename)
 yellowfile = 'solidYellowCurve.jpg'
 yellow_lines = mpimg.imread(yellowfile)
 
-# Define region of interest (ROI) in images
-height = white_lines.shape[0]
-width = white_lines.shape[1]
-vertices = np.array([(0.05,height),(0.45*width, 0.6*height), (0.55*width, 0.6*height),
-	(0.95*width, height)], dtype=np.int32)
+
+
 
 ############## Color thresholding ##############
 def apply_color_thresholds(image, red, blue, green):
@@ -50,7 +47,7 @@ def apply_masks(image, low_red, high_red, low_blue, high_blue,
 	return cv2.bitwise_and(edges, colormask)
 
 ############## ROI ##############
-def region_of_interest(image):
+def mask_roi(image, vertices):
     mask = np.zeros_like(image)   
     
     if len(image.shape) > 2:
@@ -63,16 +60,37 @@ def region_of_interest(image):
     masked_image = cv2.bitwise_and(image, mask)
     return masked_image
 
-def draw_region(image):
+def draw_region(image, vertices):
 	cp = np.copy(image)
 	numl = len(vertices)
 	for i, j in zip(range(numl), range(1, numl + 1)):
 		cv2.line(cp, tuple(vertices[i % numl]), tuple(vertices[j % numl]), (255,0,0), 5)
 	return cp
 
-def show_regions_of_interest():
-	show_images(draw_region(white_lines), region_of_interest(white_lines),
-		draw_region(yellow_lines), region_of_interest(yellow_lines))
+def get_vertices(top_height, bottom_width, top_width):
+	# Define region of interest (ROI) in images
+	if top_height > 1.0 or bottom_width > 1.0 or top_width > 1.0:
+		top_height /= 100.0
+		bottom_width /= 100.0
+		top_width /= 100.0
+	height = white_lines.shape[0]
+	width = white_lines.shape[1]
+	vertices = np.array([
+		((1.0 - bottom_width) * width / 2.0, height),
+		((1.0 - top_width) * width / 2.0, (1.0 - top_height) * height), 
+		((1.0 + top_width) * width / 2.0, (1.0 - top_height) * height),
+		((1.0 + bottom_width) * width / 2.0, height)
+		], dtype=np.int32)
+	return vertices
+
+def show_regions_of_interest(top_height=10, bottom_width=100, top_width=90):
+	vertices = get_vertices(top_height, bottom_width, top_width)
+	show_images(
+		draw_region(white_lines, vertices),
+		mask_roi(white_lines, vertices),
+		draw_region(yellow_lines, vertices), 
+		mask_roi(yellow_lines, vertices)
+		)
 
 ############## Hough Lines ##############
 def get_hough_lines(masked_image, min_line_length, max_line_gap):
