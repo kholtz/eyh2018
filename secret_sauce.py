@@ -1,5 +1,3 @@
-import ipywidgets as widgets
-from ipywidgets import interact
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
@@ -27,49 +25,29 @@ width = img.shape[1]
 vertices = np.array([(0.05,height),(0.45*width, 0.55*height), (0.55*width, 0.55*height),
 	(0.95*width, height)], dtype=np.int32)
 
-# Create widgets
-def get_color_widget(color_name):
-	return widgets.IntRangeSlider(
-		value=[0, 255], 
-		min=0,
-		max=255,
-		step=1, 
-		description=color_name + ':',
-		disabled=False,
-		continuous_update=False,
-		orientation='horizontal',
-		readout=True,
-		readout_format='d')
+def show_two_images(img1, img2):
+	# Displays two images side-by-side
+	f, axarr = plt.subplots(1, 2, figsize=(20, 12))
+	axarr[0].imshow(img1)
+	axarr[1].imshow(img2)
+	plt.show()
 
-red_widget = get_color_widget('Red')
-blue_widget = get_color_widget('Blue')
-green_widget = get_color_widget('Green')
-
-low_widget = widgets.IntSlider(
-	value=1,
-	min=0,
-	max=200,
-	step=1,
-	description='Low:',
-	disabled=False,
-	continuous_update=False,
-	orientation='horizontal',
-	readout=True,
-	readout_format='d'
-)
-
-high_widget = widgets.IntSlider(
-	value=1,
-	min=0,
-	max=400,
-	step=1,
-	description='High:',
-	disabled=False,
-	continuous_update=False,
-	orientation='horizontal',
-	readout=True,
-	readout_format='d'
-)
+def show_images(img1, img2, img3=None, img4=None):
+	# Displays images left to right, top to bottom, i.e.
+	#	img1	img2
+	#	img3	img4
+	# In the case of only 2 images, will only have one row
+	if not img3 and not img4:
+		show_two_images(img1, img2)
+		return
+	f, axarr = plt.subplots(2, 2, figsize=(20, 12))
+	axarr[0, 0].imshow(img1)
+	axarr[0, 1].imshow(img2)
+	if img3 is not None:
+		axarr[1, 0].imshow(img3)
+	if img4 is not None:
+		axarr[1, 1].imshow(img4)
+	plt.show()
 
 # Color thresholding
 def apply_color_thresholds(image, red, blue, green):
