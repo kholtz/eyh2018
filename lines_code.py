@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 def get_slopes(lines):
     """
@@ -16,7 +17,8 @@ def get_slopes(lines):
 
 def remove_outliers(slopes):
     """
-    Go through array of slopes and remove outliers, inf, and nan. Return array of valid indices.
+    Go through array of slopes and remove outliers, inf, and nan. 
+    Return array of valid indices.
     """
     
     top = 2.5*np.percentile(slopes, 75) - 1.5*np.percentile(slopes, 25)
@@ -37,7 +39,8 @@ def remove_outliers(slopes):
 
 def get_intercept(mean_slope, lines):
     """
-    Go through array of lines and return mean intercept given the slope of the line as mean_slope
+    Go through array of lines and return mean intercept given the 
+    slope of the line as mean_slope
     """
     b = []
     for line in lines:

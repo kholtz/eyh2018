@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.image as mpimg
 import cv2
 from my_display_code import *
+from lines_code import *
 
 # Load Images
 filename = 'solidWhiteRight.jpg'
@@ -83,13 +84,12 @@ def get_hough_lines(masked_image, min_line_length, max_line_gap):
     return cv2.HoughLinesP(masked_image, rho, theta, threshold, np.array([]),
     	min_line_length, max_line_gap)
 
-
 def draw_hough_lines(masked_image, min_line_length, max_line_gap):
 	lines = get_hough_lines(masked_image, min_line_length, max_line_gap)
 	masked_image_color = np.dstack((masked_image, masked_image, masked_image))
 	line_image = np.copy(masked_image_color)*0
 	for l in lines:
-		cv2.line(line_image, (l[0, 0], l[0, 1]), (l[0, 2], l[0, 3]), (255, 0, 0), 10)
+		cv2.line(line_image, (l[0, 0], l[0, 1]), (l[0, 2], l[0, 3]), (255, 0, 0), 5)
 	return cv2.addWeighted(masked_image_color, 0.7, line_image, 1, 0)
 
 def show_hough_lines(masked_image1, masked_image2, min_line_length=2, max_line_gap=0):
