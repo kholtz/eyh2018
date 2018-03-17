@@ -43,3 +43,26 @@ high_widget = widgets.IntSlider(
 	readout=True,
 	readout_format='d'
 )
+
+min_line_widget = widgets.IntSlider(
+	value=2,
+	min=2,
+	max=40,
+	step=2,
+	description='Minimum Pixels for a Line:',
+	continuous_update=False,
+	orientation='horizontal',
+	readout=True,
+	readout_format='d'
+)
+max_line_widget = widgets.IntSlider(
+	value=0,
+	min=0,
+	max=50,
+	step=2,
+	description='Maximum Gap in a Line:',
+	continuous_update=False,
+	orientation='horizontal',
+	readout=True,
+	readout_format='d'
+)
