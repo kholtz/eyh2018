@@ -12,7 +12,6 @@ dependencies:
     - ipywidgets
     - widgetsnbextension
     - ffmpeg
-    - imageio=2.1.2
+    - imageio
     - pip:
         - moviepy
-        - --no-deps
