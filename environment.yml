@@ -6,12 +6,12 @@ dependencies:
     - python==3.5.2
     - numpy
     - jupyter
-    - opencv3
     - matplotlib
     - pillow
     - ipywidgets
     - widgetsnbextension
     - ffmpeg
-    - imageio
+    - imageio=2.1.2
     - pip:
         - moviepy
+        - opencv-python
