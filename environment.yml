@@ -15,4 +15,3 @@ dependencies:
     - imageio=2.1.2
     - pip:
         - moviepy
-        - --no-deps
